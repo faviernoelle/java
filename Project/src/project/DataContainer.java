@@ -121,15 +121,15 @@ public class DataContainer {
         return string;
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            DataContainer dataContainer = new DataContainer("office.csv");
-//            System.out.println(dataContainer);
-//        } catch (IOException e) {
-//            e.printStackTrace(); 
-//        }
-//      
-//        
-//    }
+    public static void main(String[] args) {
+        try {
+            DataContainer dataContainer = new DataContainer("office.csv");
+            System.out.println(dataContainer);
+        } catch (IOException e) {
+            e.printStackTrace(); 
+        }
+      
+        
+    }
 
 }

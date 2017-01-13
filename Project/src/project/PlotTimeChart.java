@@ -21,7 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class PlotTimeChart extends JFrame implements ActionListener {
+public abstract class PlotTimeChart extends JFrame implements ActionListener {
     //Equivalent de MainFrame dans le doc
 
     DataContainer dataContainer;
@@ -45,42 +45,22 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         JPanel tablePanel = new JPanel();
         westPanel.add(tablePanel);
 
-        // Il faudrait que j'utilise les données récupérées dans PlotTimeChart
+        // Il faudrait que j'utilise les données récupérées dans PlotTimeChart--> FAIT
         int numberOfLignes;
         numberOfLignes = dataContainer.getNumberOfVariables();
-
+        String[] availableVariable;
+        availableVariable=dataContainer.getAvailableVariables();
+        
         
         tablePanel.setLayout(new GridLayout(numberOfLignes, 1));
         
         for(int i=0; i<numberOfLignes; i++){
 //            Checkbox[i]=dataContainer.data
-            
-            tablePanel.add(new Checkbox[i]("Toffice",false));
+            checkBox1[i]=new JCheckBox(availableVariable[i]);
         }
         
         
-        tablePanel.add(new Checkbox("Toffice", false));
-        tablePanel.add(new Checkbox("Tcorridor", false));
-        tablePanel.add(new Checkbox("Theater", false));
-        tablePanel.add(new Checkbox("Toffice_for_heater", false));
-        tablePanel.add(new Checkbox("office_CO2_concentration", false));
-        tablePanel.add(new Checkbox("corridor_CO2_concentration", false));
-        tablePanel.add(new Checkbox("window_opening", false));
-        tablePanel.add(new Checkbox("door_opening", false));
-        tablePanel.add(new Checkbox("power_zone1", false));
-        tablePanel.add(new Checkbox("power_zone2", false));
-        tablePanel.add(new Checkbox("power_laptop1_zone1", false));
-        tablePanel.add(new Checkbox("power_laptop1_zone2", false));
-        tablePanel.add(new Checkbox("power_laptop2_zone2", false));
-        tablePanel.add(new Checkbox("power_laptop3_zone2", false));
-        tablePanel.add(new Checkbox("detected_motion", false));
-        tablePanel.add(new Checkbox("Tout", false));
-        tablePanel.add(new Checkbox("nebulosity", false));
-        tablePanel.add(new Checkbox("solar_radiation", false));
-        tablePanel.add(new Checkbox("occupancy_from_laptops", false));
-        tablePanel.add(new Checkbox("occupancy_from_detector", false));
-        tablePanel.add(new Checkbox("occupancy_from_concentration", false));
-        tablePanel.add(new Checkbox("occupancy_from_detector", false));
+        
         button = new JButton("plot");
         tablePanel.add(button);
         button.addActionListener(this);
@@ -93,18 +73,19 @@ public class PlotTimeChart extends JFrame implements ActionListener {
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("bouton");
-        
-    }
+//    public void actionPerformed(ActionEvent e) {
+//        System.out.println("bouton");
+//        
+//        
+//    }
 
-    public static void main(String[] arg) {
-        try {
-            //new PlotTimeChart();
-        } catch (Exception e) {
-            
-        }
-    }
+//    public static void main(String[] arg) {
+//        try {
+//            //new PlotTimeChart();
+//        } catch (Exception e) {
+//            
+//        }
+//    }
 
 }
 
