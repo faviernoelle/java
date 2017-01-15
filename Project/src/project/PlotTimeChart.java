@@ -19,9 +19,10 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import javax.swing.*;
 
-public abstract class PlotTimeChart extends JFrame implements ActionListener {
+public class PlotTimeChart extends JFrame implements ActionListener {
     //Equivalent de MainFrame dans le doc
 
     DataContainer dataContainer;
@@ -31,14 +32,23 @@ public abstract class PlotTimeChart extends JFrame implements ActionListener {
     int plotCounter = 0;
 
     // Constructor 
-    public PlotTimeChart(DataContainer dataContainer) throws IOException {
+    public PlotTimeChart(DataContainer dataContainer) throws IOException, ParseException {
 
-        this.buildGUI();
+       this.InitComponents();
         dataContainer = new DataContainer("office.csv");
+
+        PlotFactory plotF;
+        plotF = new PlotFactory(dataContainer);
+            String[] availableVariable ;
+            availableVariable=dataContainer.getAvailableVariables();
+            plotF.getPlot(availableVariable);
+            
+            
+        
         
     }
 
-    private void buildGUI() {
+    private void InitComponents() {
 
         JPanel westPanel = new JPanel();
         this.add(westPanel, BorderLayout.WEST);

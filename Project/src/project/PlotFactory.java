@@ -36,69 +36,91 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 
-
 public class PlotFactory {
 
     // Variables
 //    Hashtable<String, TimeSeries> timeSeriesContainer;
     DataContainer dataContainer;
-    Hashtable <String,TimeSeries> timeSeriesContainer ;
-    
-    
+    Hashtable<String, TimeSeries> timeSeriesContainer;
+
     // Constructor
     public PlotFactory(DataContainer csvDataReader) {
-        dataContainer=csvDataReader;
+        dataContainer = csvDataReader;
     }
 
-    
-    
     // Methods
     public JPanel getPlot(String[] variableNames) throws IOException, ParseException {
-        
+
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-        DataContainer dataContainer = new DataContainer("office.csv");
+        DataContainer dataContainer = new DataContainer("office.csv"); // Read CSV
         Date[] vecteurDates = dataContainer.getDates();
+        // Initialization du tableau
+        int nbVariable = variableNames.length;
+        int nbLigne = vecteurDates.length;
+        double[][] value = new double[nbLigne][nbVariable];
+        // Boucle pour chaque variable, on la lit (colonne)
+//        for (int i = 0; i < nbVariable; i++) {        
+//            double [] tmp_value = dataContainer.getData(variableNames[i]);
+//            // Boucle sur chaque élément de la variable pour remplir la colonne du tableau
+//            for (int j = 0; j < tmp_value.length; j++){
+//                double value_ij = tmp_value[j];
+//                value[j][i] = value_ij;
+//            }
+//        }
+//        System.out.println(value);
+
+        String tableauChaine[] = {"Toffice", "Theater"};
         
-        
-        double[] value1 = dataContainer.getData("Toffice");
-        double[] value2 = dataContainer.getData("Theater");
-        double[] value3 = dataContainer.getData("Tcorridor");
-        double[] value4 = dataContainer.getData("Tout");
-
-        int nbDonnees = dataContainer.getNumberOfSamples();
-
-        TimeSeries timeSeries1 = new TimeSeries("Toffice");
-        for (int i = 0; i < nbDonnees; i++) {
-            timeSeries1.add(new Hour(vecteurDates[i]), value1[i]);
-        }
-
-        TimeSeries timeSeries2 = new TimeSeries("Theater");
-        for (int i = 0; i < nbDonnees; i++) {
-            timeSeries2.add(new Hour(vecteurDates[i]), value2[i]);
-        }
-
-        TimeSeries timeSeries3 = new TimeSeries("Tcorridor");
-        for (int i = 0; i < nbDonnees; i++) {
-            timeSeries3.add(new Hour(vecteurDates[i]), value3[i]);
-        }
-
-        TimeSeries timeSeries4 = new TimeSeries("Tout");
-        for (int i = 0; i < nbDonnees; i++) {
-            timeSeries4.add(new Hour(vecteurDates[i]), value4[i]);
-        }
-
         TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
-        timeSeriesCollection.addSeries(timeSeries1);
-        timeSeriesCollection.addSeries(timeSeries2);
-        timeSeriesCollection.addSeries(timeSeries3);
-        timeSeriesCollection.addSeries(timeSeries4);
+        for (int j = 0; j < 2; j++) {
+            // String capteur = tableauChaine[j];
+            // Get the data
+            double[] value1 = dataContainer.getData(tableauChaine[j]);
+            int nbDonnees = dataContainer.getNumberOfSamples();
+            // Store data in vector
+            TimeSeries timeSeries1 = new TimeSeries(tableauChaine[j]);
+            for (int i = 0; i < nbDonnees; i++) {
+                timeSeries1.add(new Hour(vecteurDates[i]), value1[i]);
+            }
+            timeSeriesCollection.addSeries(timeSeries1);
+        }
+
+//        double[] value1 = dataContainer.getData("Toffice");
+//        double[] value2 = dataContainer.getData("Theater");
+//        double[] value3 = dataContainer.getData("Tcorridor");
+//        double[] value4 = dataContainer.getData("Tout");
+
+//        int nbDonnees = dataContainer.getNumberOfSamples();
+//
+//        TimeSeries timeSeries1 = new TimeSeries("Toffice");
+//        for (int i = 0; i < nbDonnees; i++) {
+//            timeSeries1.add(new Hour(vecteurDates[i]), value1[i]);
+//        }
+//
+//        TimeSeries timeSeries2 = new TimeSeries("Theater");
+//        for (int i = 0; i < nbDonnees; i++) {
+//            timeSeries2.add(new Hour(vecteurDates[i]), value2[i]);
+//        }
+
+//        TimeSeries timeSeries3 = new TimeSeries("Tcorridor");
+//        for (int i = 0; i < nbDonnees; i++) {
+//            timeSeries3.add(new Hour(vecteurDates[i]), value3[i]);
+//        }
+//
+//        TimeSeries timeSeries4 = new TimeSeries("Tout");
+//        for (int i = 0; i < nbDonnees; i++) {
+//            timeSeries4.add(new Hour(vecteurDates[i]), value4[i]);
+//        }
+//        TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
+//        timeSeriesCollection.addSeries(timeSeries1);
+//        timeSeriesCollection.addSeries(timeSeries2);
+//        timeSeriesCollection.addSeries(timeSeries3);
+//        timeSeriesCollection.addSeries(timeSeries4);
 
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
         JFrame frame = new JFrame("Test");
         frame.setLayout(new BorderLayout());
-       
-        
-        
+
 //        button.addActionListener(this);
         JPanel centerPanel = new JPanel();
         frame.add(centerPanel, BorderLayout.CENTER);
@@ -106,19 +128,13 @@ public class PlotFactory {
         frame.getContentPane().add(chartPanel);
         frame.pack();
         frame.setVisible(true);
-      
-        
+
         return new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
 
     }
 }
-        
-        
-        
-        
-        
-        
-        /*DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+
+/*DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
         DataContainer data_Container = new DataContainer("office.csv");
         Date[] vecteurDates = data_Container.getDates();
         
@@ -176,5 +192,4 @@ public class PlotFactory {
 
         }
         return new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false))
-        */ 
-            
+ */

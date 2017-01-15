@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,6 +11,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.data.time.TimeSeriesCollection;
 
 public class DataContainer {
 
@@ -18,7 +24,6 @@ public class DataContainer {
     Hashtable<String, ArrayList<Double>> data;
     int numberOfSamples = 0;
 
-    
     //Constructor
     public DataContainer(String csvFileName) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFileName));
@@ -45,7 +50,10 @@ public class DataContainer {
             }
         }
         bufferedReader.close();
-        numberOfSamples = timeStrings.size();
+        numberOfSamples = timeStrings.size();   
+        
+        // PlotTimeChart toPlot = new PlotTimeChart() ;
+
     }
 
     // Methods
@@ -121,15 +129,41 @@ public class DataContainer {
         return string;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         try {
-            DataContainer dataContainer = new DataContainer("office.csv");
-            System.out.println(dataContainer);
+            // Permet de lire le fichier .csv et stocker dans un tableau data
+            System.out.println("Start DataContainer");
+            DataContainer data = new DataContainer("office.csv");
+            System.out.println(data);
+            System.out.println("End DataContainer");
+            
+           
+            // Jouer avec ton DataContainer data
+            System.out.println("Affichage de variable");
+            String[] variables_existante = data.getAvailableVariables();
+            System.out.println(variables_existante);
+            
+            
+            System.out.println("Affichage du nombre de variables");
+            int nb_variable = data.getNumberOfVariables();
+            System.out.println(nb_variable);
+            
+            // avoir les variables sélectionnées
+            // variables_selectionnées
+            
+            
+            // afficher les variables à afficher dans une interface
+             System.out.println("Start PlotFactory");
+             PlotFactory plot = new PlotFactory(data);
+              String[] aTracer = new String[4] ;
+             plot.getPlot(aTracer);
+             System.out.println("End PlotFactory");
+            // PlotTimeChart toPlot = new PlotTimeChart(dataContainer) ;
+            
         } catch (IOException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
-      
-        
+
     }
 
 }
