@@ -72,36 +72,20 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         // Crée un bouton pour chacune des variables du dataContainer
         // JCheckBox checkBox1;
         for (int i = 0; i < 1; i++) {
-//            Checkbox[i]=dataContainer.data
-// availableVariable[i]
-            
+            // availableVariable[i]
+            JCheckBox checkBox1 = new JCheckBox(availableVariable[i]);
+            tablePanel.add(checkBox1);
         }
-        
-        // JCheckBox checkBox1 = new JCheckBox("Noelle");
-        // check
+        // JCheckBox checkBox1 = new JCheckBox(availableVariable[0]);
 
-        int numberOfVariables = dataContainer.getNumberOfVariables(); // Nombre de box à créer
-        String[] availableVariables = dataContainer.getAvailableVariables();
-        JCheckBox[] tabCheckbox = new JCheckBox[numberOfVariables + 1];
-
-        for (int i = 0; i < numberOfVariables; i++) {
-            tabCheckbox[i] = new JCheckBox(availableVariables[i]);
-        }
-
-        tabCheckbox[numberOfVariables] = new JCheckBox("Consommation des ordinateurs"); //Checkbox supplémentaire pour un pie chart
-
-        
-        
-        
         //Cré le bouton qui permet de tracer les variables sélectionnées
         button = new JButton("plot");
         tablePanel.add(button);
         button.addActionListener(this);
         JPanel centerPanel = new JPanel();
-        tablePanel.add(tabCheckbox);
         JPanel eastPanel = new JPanel();
-        this.add(eastPanel,BorderLayout.EAST);
-        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(eastPanel, BorderLayout.EAST);
+//        this.add(centerPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.pack();
