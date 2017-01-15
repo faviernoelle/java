@@ -31,17 +31,33 @@ import org.jfree.data.time.TimeSeriesCollection;
 
 public class PlotTimeChart extends JFrame implements ActionListener {
     //Equivalent de MainFrame dans le doc
-
+    
+    // Déclaration
     DataContainer dataContainer;
     PlotFactory plotFactory;
-    JButton button;
-    // JCheckBox[] checkBox1;
+    JButton button;  
     int plotCounter = 0;
+    int numberOfVariables;
+    int numberOfSamples;
+    JCheckBox[] checkBox1;
+    
+    // public ButtonAction(JCheckBox[] tabCheckbox, DataContainer data, JTextField fieldDateDebut, JTextField fieldDateFin) {
+        
 
+    
+    
+    
+    
     // Constructor 
     public PlotTimeChart(DataContainer dataContainer) throws IOException, ParseException {
-
+        
+        // Assignation
+        this.numberOfVariables = dataContainer.getNumberOfVariables();
+        this.checkBox1 = new JCheckBox[numberOfVariables];
+        this.dataContainer = dataContainer;
+        this.numberOfSamples = dataContainer.getNumberOfSamples();
         this.InitComponents(dataContainer);
+        
 
     }
 
@@ -56,18 +72,18 @@ public class PlotTimeChart extends JFrame implements ActionListener {
 
         // Récupère les variables du DataContainer
         System.out.println("- Récupère les variables du DataContainer");
-        int numberOfLignes = dataContainer.getNumberOfVariables();
-        System.out.println(numberOfLignes);
+        // int numberOfLignes = dataContainer.getNumberOfVariables();
+        // System.out.println(numberOfLignes);
         String[] availableVariable = dataContainer.getAvailableVariables();
         System.out.println(availableVariable[0]);
 
         //Crée le tableau avec les cases a cocher
-        tablePanel.setLayout(new GridLayout(numberOfLignes, 1));
+        tablePanel.setLayout(new GridLayout(numberOfVariables, 1));
         // Crée un bouton pour chacune des variables du dataContainer
-        JCheckBox[] checkBox1 = new JCheckBox[numberOfLignes];
+        // JCheckBox[] checkBox1 = new JCheckBox[numberOfVariables];
         
         
-        for (int i = 0; i < numberOfLignes; i++) {
+        for (int i = 0; i < numberOfVariables; i++) {
             checkBox1[i] = new JCheckBox(availableVariable[i]);
             tablePanel.add(checkBox1[i]);
         }
@@ -80,19 +96,20 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         JPanel centerPanel = new JPanel();
         this.add(eastPanel, BorderLayout.EAST);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         this.pack();
         this.setVisible(true);
 
     }
+    
 
     public void actionPerformed(ActionEvent e) {
-//        TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();
-//        numberOfSamples = dataContainer.getNumberOfSamples();
-//        Date[] date = new Date[numberOfSamples];
-//        double[] aTracer;
-//        String[] variableATracer ;
-//        
+        TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();
+        int numberOfSamples = dataContainer.getNumberOfSamples();
+        // Date[] date = new Date[numberOfSamples];
+        double[] aTracer;
+        String[] variableATracer ;
+        System.out.println("-- Le bouton est actionné");
+        
 //        try {
 //            date = dataContainer.getDates();
 //        } catch (ParseException ex) {
@@ -104,7 +121,7 @@ public class PlotTimeChart extends JFrame implements ActionListener {
 //                aTracer = dataContainer.getData(checkBox1[i].getText());
 //                TimeSeries timeSerie = new TimeSeries(checkBox1[i].getText());
 //                timeSerieCollection.addSeries(timeSerie);
-        // }
+//         }
     }
 
 }
