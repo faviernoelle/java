@@ -56,21 +56,8 @@ public class PlotFactory {
         Date[] vecteurDates = dataContainer.getDates();
         // Initialization du tableau
         int nbVariable = variableNames.length;
-        int nbLigne = vecteurDates.length;
-        double[][] value = new double[nbLigne][nbVariable];
-        // Boucle pour chaque variable, on la lit (colonne)
-//        for (int i = 0; i < nbVariable; i++) {        
-//            double [] tmp_value = dataContainer.getData(variableNames[i]);
-//            // Boucle sur chaque élément de la variable pour remplir la colonne du tableau
-//            for (int j = 0; j < tmp_value.length; j++){
-//                double value_ij = tmp_value[j];
-//                value[j][i] = value_ij;
-//            }
-//        }
-//        System.out.println(value);
-
-        // String tableauChaine[] = {"Toffice", "Theater"};
-        
+        // int nbLigne = vecteurDates.length;
+       
         TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
         for (int j = 0; j < nbVariable; j++) {
             // String capteur = tableauChaine[j];
