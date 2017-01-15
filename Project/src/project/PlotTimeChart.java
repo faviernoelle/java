@@ -31,33 +31,26 @@ import org.jfree.data.time.TimeSeriesCollection;
 
 public class PlotTimeChart extends JFrame implements ActionListener {
     //Equivalent de MainFrame dans le doc
-    
+
     // Déclaration
     DataContainer dataContainer;
     PlotFactory plotFactory;
-    JButton button;  
+    JButton button;
     int plotCounter = 0;
     int numberOfVariables;
     int numberOfSamples;
     JCheckBox[] checkBox1;
-    
-    // public ButtonAction(JCheckBox[] tabCheckbox, DataContainer data, JTextField fieldDateDebut, JTextField fieldDateFin) {
-        
 
-    
-    
-    
-    
+    // public ButtonAction(JCheckBox[] tabCheckbox, DataContainer data, JTextField fieldDateDebut, JTextField fieldDateFin) {
     // Constructor 
     public PlotTimeChart(DataContainer dataContainer) throws IOException, ParseException {
-        
+
         // Assignation
         this.numberOfVariables = dataContainer.getNumberOfVariables();
         this.checkBox1 = new JCheckBox[numberOfVariables];
         this.dataContainer = dataContainer;
         this.numberOfSamples = dataContainer.getNumberOfSamples();
         this.InitComponents(dataContainer);
-        
 
     }
 
@@ -81,8 +74,7 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         tablePanel.setLayout(new GridLayout(numberOfVariables, 1));
         // Crée un bouton pour chacune des variables du dataContainer
         // JCheckBox[] checkBox1 = new JCheckBox[numberOfVariables];
-        
-        
+
         for (int i = 0; i < numberOfVariables; i++) {
             checkBox1[i] = new JCheckBox(availableVariable[i]);
             tablePanel.add(checkBox1[i]);
@@ -100,32 +92,62 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         this.setVisible(true);
 
     }
-    
 
     public void actionPerformed(ActionEvent e) {
+        // But : va plot les variables sélectionnées
+
         TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();
         int numberOfSamples = dataContainer.getNumberOfSamples();
-        // Date[] date = new Date[numberOfSamples];
+        Date[] date = new Date[numberOfSamples];
         double[] aTracer;
-        String[] variableATracer ;
+        String[] variableATracer;
         System.out.println("-- Le bouton est actionné");
+
+        try {
+            // Je récupère la date
+            System.out.println("-- Je récupère la date");
+            date = dataContainer.getDates();
+        } catch (ParseException ex) {
+            Logger.getLogger(ButtonAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+        System.out.println("-- Je détermine le nombre de variables à tracer");
+        int nbATrace = 0;
+        for (int i = 0; i < numberOfVariables; i++) {
+            if (checkBox1[i].isSelected()) {
+                nbATrace = nbATrace+1;
+            }
+        }
+        System.out.println(nbATrace);
         
-//        try {
-//            date = dataContainer.getDates();
-//        } catch (ParseException ex) {
-//            Logger.getLogger(ButtonAction.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-//        for (int i = 0; i < numberOfSamples; i++) {
-//            if (checkBox1[i].isSelected()) {
-//                aTracer = dataContainer.getData(checkBox1[i].getText());
-//                TimeSeries timeSerie = new TimeSeries(checkBox1[i].getText());
-//                timeSerieCollection.addSeries(timeSerie);
-//         }
+        
+        System.out.println("-- Je stock dans un tableau");
+        String[] tableauNames = new String[nbATrace];
+        int counter = 0;
+        // String[] variables_existante = dataContainer.getAvailableVariables();
+        for (int i = 0; i < numberOfVariables; i++) {
+            if (checkBox1[i].isSelected()) {
+                // tableauNames[i] = variables_existante(i);
+                tableauNames[counter] = checkBox1[i].getText();
+                System.out.println(tableauNames[counter]);
+                counter = counter +1;
+                // aTracer = dataContainer.getData(checkBox1[i].getText());
+                // TimeSeries timeSerie = new TimeSeries(checkBox1[i].getText());
+                // timeSerieCollection.addSeries(timeSerie);
+            }
+        }
+        // appel à la fonction qui trace
+        PlotFactory plot = new PlotFactory(dataContainer);
+        try {
+            plot.getPlot(tableauNames);
+        } catch (IOException ex) {
+            Logger.getLogger(PlotTimeChart.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PlotTimeChart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
-
 }
-
 // @Override
 //        PlotFactory plotF;
 //        plotF = new PlotFactory(dataContainer);
