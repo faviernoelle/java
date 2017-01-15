@@ -70,13 +70,13 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         //Cré le tableau avec les cases a cocher
         tablePanel.setLayout(new GridLayout(numberOfLignes, 1));
         // Crée un bouton pour chacune des variables du dataContainer
-        JCheckBox[] checkBox1 = new JCheckBox[2];
+        JCheckBox[] checkBox1 = new JCheckBox[numberOfLignes];
         
-        String availableVariable2[] = {"Toffice", "Theater"};
+        // String availableVariable2[] = {"Toffice", "Theater"};
         
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < numberOfLignes; i++) {
             // availableVariable[i]
-            checkBox1[i] = new JCheckBox(availableVariable2[i]);
+            checkBox1[i] = new JCheckBox(availableVariable[i]);
             tablePanel.add(checkBox1[i]);
         }
         // JCheckBox checkBox1 = new JCheckBox(availableVariable[0]);
