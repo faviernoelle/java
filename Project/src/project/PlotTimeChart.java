@@ -42,13 +42,7 @@ public class PlotTimeChart extends JFrame implements ActionListener {
     public PlotTimeChart(DataContainer dataContainer) throws IOException, ParseException {
 
         this.InitComponents(dataContainer);
-        // dataContainer = new DataContainer("office.csv");
 
-        // PlotFactory plotF;
-        // plotF = new PlotFactory(dataContainer);
-        // String[] availableVariable ;
-        // availableVariable=dataContainer.getAvailableVariables();
-        // plotF.getPlot(availableVariable);
     }
 
     private void InitComponents(DataContainer dataContainer) {
@@ -67,28 +61,24 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         String[] availableVariable = dataContainer.getAvailableVariables();
         System.out.println(availableVariable[0]);
 
-        //Cré le tableau avec les cases a cocher
+        //Crée le tableau avec les cases a cocher
         tablePanel.setLayout(new GridLayout(numberOfLignes, 1));
         // Crée un bouton pour chacune des variables du dataContainer
         JCheckBox[] checkBox1 = new JCheckBox[numberOfLignes];
         
-        // String availableVariable2[] = {"Toffice", "Theater"};
         
         for (int i = 0; i < numberOfLignes; i++) {
-            // availableVariable[i]
             checkBox1[i] = new JCheckBox(availableVariable[i]);
             tablePanel.add(checkBox1[i]);
         }
-        // JCheckBox checkBox1 = new JCheckBox(availableVariable[0]);
 
-        //Cré le bouton qui permet de tracer les variables sélectionnées
+        //Crée le bouton qui permet de tracer les variables sélectionnées
         button = new JButton("plot");
         tablePanel.add(button);
         button.addActionListener(this);
-        JPanel centerPanel = new JPanel();
         JPanel eastPanel = new JPanel();
+        JPanel centerPanel = new JPanel();
         this.add(eastPanel, BorderLayout.EAST);
-//        this.add(centerPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.pack();
