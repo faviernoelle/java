@@ -19,8 +19,15 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 
 public class PlotTimeChart extends JFrame implements ActionListener {
     //Equivalent de MainFrame dans le doc
@@ -28,53 +35,72 @@ public class PlotTimeChart extends JFrame implements ActionListener {
     DataContainer dataContainer;
     PlotFactory plotFactory;
     JButton button;
-    JCheckBox[] checkBox1;
+    // JCheckBox[] checkBox1;
     int plotCounter = 0;
 
     // Constructor 
     public PlotTimeChart(DataContainer dataContainer) throws IOException, ParseException {
 
-       this.InitComponents();
-        dataContainer = new DataContainer("office.csv");
+        this.InitComponents(dataContainer);
+        // dataContainer = new DataContainer("office.csv");
 
-        PlotFactory plotF;
-        plotF = new PlotFactory(dataContainer);
-            String[] availableVariable ;
-            availableVariable=dataContainer.getAvailableVariables();
-            plotF.getPlot(availableVariable);
-            
-            
-        
-        
+        // PlotFactory plotF;
+        // plotF = new PlotFactory(dataContainer);
+        // String[] availableVariable ;
+        // availableVariable=dataContainer.getAvailableVariables();
+        // plotF.getPlot(availableVariable);
     }
 
-    private void InitComponents() {
+    private void InitComponents(DataContainer dataContainer) {
 
+        // Crée un GUI pour les boutons
+        System.out.println("- Crée un GUI pour les boutons");
         JPanel westPanel = new JPanel();
         this.add(westPanel, BorderLayout.WEST);
         JPanel tablePanel = new JPanel();
         westPanel.add(tablePanel);
 
-        // Il faudrait que j'utilise les données récupérées dans PlotTimeChart--> FAIT
-        int numberOfLignes;
-        numberOfLignes = dataContainer.getNumberOfVariables();
-        String[] availableVariable;
-        availableVariable=dataContainer.getAvailableVariables();
-        
-        
+        // Récupère les variables du DataContainer
+        System.out.println("- Récupère les variables du DataContainer");
+        int numberOfLignes = dataContainer.getNumberOfVariables();
+        System.out.println(numberOfLignes);
+        String[] availableVariable = dataContainer.getAvailableVariables();
+        System.out.println(availableVariable[0]);
+
+        //Cré le tableau avec les cases a cocher
         tablePanel.setLayout(new GridLayout(numberOfLignes, 1));
-        
-        for(int i=0; i<numberOfLignes; i++){
+        // Crée un bouton pour chacune des variables du dataContainer
+        // JCheckBox checkBox1;
+        for (int i = 0; i < 1; i++) {
 //            Checkbox[i]=dataContainer.data
-            checkBox1[i]=new JCheckBox(availableVariable[i]);
+// availableVariable[i]
+            
         }
         
+        // JCheckBox checkBox1 = new JCheckBox("Noelle");
+        // check
+
+        int numberOfVariables = dataContainer.getNumberOfVariables(); // Nombre de box à créer
+        String[] availableVariables = dataContainer.getAvailableVariables();
+        JCheckBox[] tabCheckbox = new JCheckBox[numberOfVariables + 1];
+
+        for (int i = 0; i < numberOfVariables; i++) {
+            tabCheckbox[i] = new JCheckBox(availableVariables[i]);
+        }
+
+        tabCheckbox[numberOfVariables] = new JCheckBox("Consommation des ordinateurs"); //Checkbox supplémentaire pour un pie chart
+
         
         
+        
+        //Cré le bouton qui permet de tracer les variables sélectionnées
         button = new JButton("plot");
         tablePanel.add(button);
         button.addActionListener(this);
         JPanel centerPanel = new JPanel();
+        tablePanel.add(tabCheckbox);
+        JPanel eastPanel = new JPanel();
+        this.add(eastPanel,BorderLayout.EAST);
         this.add(centerPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -83,66 +109,57 @@ public class PlotTimeChart extends JFrame implements ActionListener {
 
     }
 
-//    public void actionPerformed(ActionEvent e) {
-//        System.out.println("bouton");
+    public void actionPerformed(ActionEvent e) {
+//        TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();
+//        numberOfSamples = dataContainer.getNumberOfSamples();
+//        Date[] date = new Date[numberOfSamples];
+//        double[] aTracer;
+//        String[] variableATracer ;
 //        
-//        
-//    }
-
-//    public static void main(String[] arg) {
 //        try {
-//            //new PlotTimeChart();
-//        } catch (Exception e) {
-//            
+//            date = dataContainer.getDates();
+//        } catch (ParseException ex) {
+//            Logger.getLogger(ButtonAction.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//    }
+//        DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+//        for (int i = 0; i < numberOfSamples; i++) {
+//            if (checkBox1[i].isSelected()) {
+//                aTracer = dataContainer.getData(checkBox1[i].getText());
+//                TimeSeries timeSerie = new TimeSeries(checkBox1[i].getText());
+//                timeSerieCollection.addSeries(timeSerie);
+        // }
+    }
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @Override
+//        PlotFactory plotF;
+//        plotF = new PlotFactory(dataContainer);
+//        for (int j = 0; j < numberOfSamples; j++) {
+////            plotF.getPlot());
+//            
+//        }
+//
+////    public void actionPerformed(ActionEvent e) {
+////        System.out.println("bouton");
+////        
+////        
+////    }
+//
+////    public static void main(String[] arg) {
+////        try {
+////            //new PlotTimeChart();
+////        } catch (Exception e) {
+////            
+////        }
+////    }
+//
+//}
+//
+//
+//
+//
+//
 //}
 
 /*

@@ -156,10 +156,14 @@ public class DataContainer {
              System.out.println("Start PlotFactory");
              PlotFactory plot = new PlotFactory(data);
              String tableauChaine[] = {"Toffice", "Theater"};
-             // String[] aTracer = new String[4] ;
+             System.out.println(tableauChaine[1]);
              plot.getPlot(tableauChaine);
              System.out.println("End PlotFactory");
-            // PlotTimeChart toPlot = new PlotTimeChart(dataContainer) ;
+            
+            // Affichage de la fenetre de selection 
+            System.out.println("Start Plot Buttons");
+            PlotTimeChart plotButtons = new PlotTimeChart(data) ;
+            
             
         } catch (IOException e) {
             e.printStackTrace();
