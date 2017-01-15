@@ -15,8 +15,12 @@ import java.io.IOException;
 
 public class LaptopConsumption {
     
+    // Variable globale
     
-     // DataContainer dataContainer = new DataContainer("office.csv");
+    
+    
+    // Asignation
+     
     
     
     
