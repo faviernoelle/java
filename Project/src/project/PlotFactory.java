@@ -69,53 +69,22 @@ public class PlotFactory {
 //        }
 //        System.out.println(value);
 
-        String tableauChaine[] = {"Toffice", "Theater"};
+        // String tableauChaine[] = {"Toffice", "Theater"};
         
         TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
-        for (int j = 0; j < 2; j++) {
+        for (int j = 0; j < nbVariable; j++) {
             // String capteur = tableauChaine[j];
             // Get the data
-            double[] value1 = dataContainer.getData(tableauChaine[j]);
+            double[] value1 = dataContainer.getData(variableNames[j]);
             int nbDonnees = dataContainer.getNumberOfSamples();
             // Store data in vector
-            TimeSeries timeSeries1 = new TimeSeries(tableauChaine[j]);
+            TimeSeries timeSeries1 = new TimeSeries(variableNames[j]);
             for (int i = 0; i < nbDonnees; i++) {
                 timeSeries1.add(new Hour(vecteurDates[i]), value1[i]);
             }
             timeSeriesCollection.addSeries(timeSeries1);
         }
 
-//        double[] value1 = dataContainer.getData("Toffice");
-//        double[] value2 = dataContainer.getData("Theater");
-//        double[] value3 = dataContainer.getData("Tcorridor");
-//        double[] value4 = dataContainer.getData("Tout");
-
-//        int nbDonnees = dataContainer.getNumberOfSamples();
-//
-//        TimeSeries timeSeries1 = new TimeSeries("Toffice");
-//        for (int i = 0; i < nbDonnees; i++) {
-//            timeSeries1.add(new Hour(vecteurDates[i]), value1[i]);
-//        }
-//
-//        TimeSeries timeSeries2 = new TimeSeries("Theater");
-//        for (int i = 0; i < nbDonnees; i++) {
-//            timeSeries2.add(new Hour(vecteurDates[i]), value2[i]);
-//        }
-
-//        TimeSeries timeSeries3 = new TimeSeries("Tcorridor");
-//        for (int i = 0; i < nbDonnees; i++) {
-//            timeSeries3.add(new Hour(vecteurDates[i]), value3[i]);
-//        }
-//
-//        TimeSeries timeSeries4 = new TimeSeries("Tout");
-//        for (int i = 0; i < nbDonnees; i++) {
-//            timeSeries4.add(new Hour(vecteurDates[i]), value4[i]);
-//        }
-//        TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
-//        timeSeriesCollection.addSeries(timeSeries1);
-//        timeSeriesCollection.addSeries(timeSeries2);
-//        timeSeriesCollection.addSeries(timeSeries3);
-//        timeSeriesCollection.addSeries(timeSeries4);
 
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
         JFrame frame = new JFrame("Test");

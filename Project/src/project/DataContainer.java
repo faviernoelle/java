@@ -155,8 +155,9 @@ public class DataContainer {
             // afficher les variables à afficher dans une interface
              System.out.println("Start PlotFactory");
              PlotFactory plot = new PlotFactory(data);
-              String[] aTracer = new String[4] ;
-             plot.getPlot(aTracer);
+             String tableauChaine[] = {"Toffice", "Theater"};
+             // String[] aTracer = new String[4] ;
+             plot.getPlot(tableauChaine);
              System.out.println("End PlotFactory");
             // PlotTimeChart toPlot = new PlotTimeChart(dataContainer) ;
             
