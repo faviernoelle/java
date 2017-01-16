@@ -37,6 +37,8 @@ public class LaptopConsumption {
     String[] variables;
     String[] zoneAanalyser;
 
+   
+    
     // Constructor
     public LaptopConsumption(DataContainer dataContainer) throws IOException, ParseException {
         // Asignation
@@ -46,17 +48,27 @@ public class LaptopConsumption {
         this.numberOfSamples = dataContainer.getNumberOfSamples();
         String tmp_zoneAanalyser[] = {"power_laptop1_zone1", "power_laptop1_zone2", "power_laptop2_zone2", "power_laptop3_zone2"};
         this.zoneAanalyser = tmp_zoneAanalyser;
-        int[] presence = this.AnalyseConsumption();
+        
+        // Presence en fonction des occupants + plots       
+        System.out.println("Presence en fonction des occupants + plots ");
+        double[] presence = this.AnalyseConsumptionLaptops();
         System.out.println(presence);
-        this.getPresencePlot(presence);
-
+        String title1 = "Occupancy estimator";
+        this.getPresencePlot(presence, title1);
+        
+        // Presence en fonction de motion + plots
+        System.out.println("Presence en fonction de motion + plots ");
+        double[] presenceMotion = this.AnalyseDataMotion(presence);
+        String title2 = "Occupancy estimator + Motion detection";
+        this.getPresencePlot(presenceMotion, title2);
+        
     }
 
-    public int[] AnalyseConsumption() {
+    public double[] AnalyseConsumptionLaptops() {
 
         
         // 1. Récupérer depuis dataContainer la colonne de zone à analyser
-        int[] presence = new int[numberOfSamples];
+        double[] presence = new double[numberOfSamples];
         double[] donnees;
         for (int t=0 ; t<numberOfSamples ; t++){
             presence[t]=0;
@@ -77,9 +89,41 @@ public class LaptopConsumption {
 
         return presence;
     }
+    
+    public double[] AnalyseDataMotion(double[] presence){
+
+        double[] occupancyFromMotions = new double[numberOfSamples];
+        
+        // Occupancy from motion detections
+        int scale = 1000;
+        double[] ErrMoy = new double[scale + 1];
+        double[] detectedMotions = dataContainer.getData("detected_motions");
+        for (int alpha = 0; alpha < (scale + 1); alpha++) { //Création du vecteur de l'erreur en fonction de alpha
+            int countAverage = 0;
+            ErrMoy[alpha] = 0;
+            double newAlpha = alpha;
+            for (int t = 0; t < numberOfSamples; t++) {
+                if (presence[t] != 0) {
+                    ErrMoy[alpha] += Math.abs(((newAlpha / scale) * detectedMotions[t]) - presence[t]);
+                    countAverage++;
+                }
+            }
+            ErrMoy[alpha] = ErrMoy[alpha] / countAverage;
+        }
+
+        Dichotomie dicho = new Dichotomie(ErrMoy, 0, scale, 500);
+        double alphaOptimal = dicho.getMinValue();       
+        for (int i = 0; i < numberOfSamples; i++) {
+            occupancyFromMotions[i] = alphaOptimal / scale * detectedMotions[i];
+        }
+        
+        return occupancyFromMotions;
+    }
+    
+    
 
     // Methods
-    public JPanel getPresencePlot(int[] presence) throws IOException, ParseException {
+    public JPanel getPresencePlot(double[] presence, String title) throws IOException, ParseException {
 
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
         Date[] vecteurDates = dataContainer.getDates();
@@ -93,7 +137,7 @@ public class LaptopConsumption {
 
         // Trace la time series
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
-        JFrame frame = new JFrame("Test");
+        JFrame frame = new JFrame(title);
         frame.setLayout(new BorderLayout());
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
