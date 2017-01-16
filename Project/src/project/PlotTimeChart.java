@@ -151,7 +151,7 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         
         System.out.println("-- Je stockes dans un tableau");
         String[] tableauNames = new String[nbATrace];
-        int counter = 0;
+        int counter = 0; // Compteur qui permet d'incrémenter la taille de tableauNames pour ne pas suivre les indices i
         // String[] variables_existante = dataContainer.getAvailableVariables();
         System.out.println("-- Voici les nouvelles variables tracées");
         for (int i = 0; i < numberOfVariables; i++) {
