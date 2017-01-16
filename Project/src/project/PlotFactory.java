@@ -5,21 +5,7 @@
  */
 package project;
 
-/**
- *
- * @author faviern
- */
-
-/*
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JFrame;
- */
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
-import java.awt.GridLayout;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,9 +18,26 @@ import org.jfree.data.time.Hour;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import java.util.Hashtable;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+
+
+/**
+ * <b>DataContainer est la classe représentant un fichier de données.</b>
+ * <p>
+ * Un objet DataContainer est caractérisé par les informations suivantes :
+ * <ul>
+ * <li>Une date.</li>
+ * <li>Un nom de variables.</li>
+ * </ul>
+ * </p>
+ * <p>
+ * </p>
+ * 
+ * @see
+ * 
+ * @author faviern
+ * @version 1.0
+ */
 
 public class PlotFactory {
 
@@ -89,3 +92,13 @@ public class PlotFactory {
     }
 }
 
+
+
+
+/*
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+ */
