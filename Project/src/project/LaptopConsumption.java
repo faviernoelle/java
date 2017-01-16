@@ -5,10 +5,6 @@
  */
 package project;
 
-/**
- *
- * @author faviern
- */
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -24,9 +20,19 @@ import org.jfree.data.time.Hour;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
+
+/**
+ * <b>LaptopConsumption est la classe permettant de calculer la consommation des PCs dans une zonne
+ * et aussi celle des utilisateurs.</b>
+ * 
+ * @see une interface montrant cet effet
+ * 
+ * @author faviern
+ * @version 1.0
+ */
 public class LaptopConsumption {
 
-    // Variable globale
+    // Déclaration de Variables globales
     DataContainer dataContainer;
     PlotFactory plotFactory;
     int plotCounter = 0;
@@ -37,15 +43,28 @@ public class LaptopConsumption {
 
    
     
-    // Constructor
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    // Constructor    
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    /**
+    * Initialisation de la classe et lancement automatique de l'analyse de la 
+    * consommation des utilisateurs/zones, etc.
+    * 
+    * @param dataContainer
+    *               objet data container contenant les données au format 
+    *               en colonne les variables (capteurs)
+    *               en ligne les données datées
+    * @throws java.io.IOException
+    * @throws java.text.ParseException
+    */
     public LaptopConsumption(DataContainer dataContainer) throws IOException, ParseException {
         // Asignation
-        this.variables = dataContainer.getAvailableVariables();
-        this.numberOfVariables = dataContainer.getNumberOfVariables();
-        this.dataContainer = dataContainer;
-        this.numberOfSamples = dataContainer.getNumberOfSamples();
-        String tmp_zoneAanalyser[] = {"power_laptop1_zone1", "power_laptop1_zone2", "power_laptop2_zone2", "power_laptop3_zone2"};
-        this.zoneAanalyser = tmp_zoneAanalyser;
+        this.variables              = dataContainer.getAvailableVariables();
+        this.numberOfVariables      = dataContainer.getNumberOfVariables();
+        this.dataContainer          = dataContainer;
+        this.numberOfSamples        = dataContainer.getNumberOfSamples();
+        String tmp_zoneAanalyser[]  = {"power_laptop1_zone1", "power_laptop1_zone2", "power_laptop2_zone2", "power_laptop3_zone2"};
+        this.zoneAanalyser          = tmp_zoneAanalyser;
         
         // Presence en fonction des occupants + plots       
         System.out.println("Presence en fonction des occupants + plots ");
@@ -62,9 +81,13 @@ public class LaptopConsumption {
         
     }
 
+    /**
+    * Presence en fonction des occupants + plots
+    * 
+    * @return 
+    */
     public double[] AnalyseConsumptionLaptops() {
-
-        
+       
         // 1. Récupérer depuis dataContainer la colonne de zone à analyser
         double[] presence = new double[numberOfSamples];
         double[] donnees;
@@ -87,7 +110,14 @@ public class LaptopConsumption {
 
         return presence;
     }
-    
+
+    /**
+    * Presence en fonction de motion + plots
+    * 
+    * @param presence
+    *               la présence calculée simplément avec les zones X et le laptop Y
+    * @return 
+    */    
     public double[] AnalyseDataMotion(double[] presence){
 
         double[] occupancyFromMotions = new double[numberOfSamples];
@@ -118,9 +148,20 @@ public class LaptopConsumption {
         return occupancyFromMotions;
     }
     
-    
-
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     // Methods
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    /**
+    * Plot des présences calculées
+    * 
+    * @param presence
+    *               la présence calculée simplément avec les zones X et le laptop Y
+    * @param title
+    *               un titre pour la fenêtre GUI
+    * @return 
+    * @throws java.io.IOException 
+    * @throws java.text.ParseException 
+    */
     public JPanel getPresencePlot(double[] presence, String title) throws IOException, ParseException {
 
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
