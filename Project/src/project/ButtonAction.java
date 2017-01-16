@@ -9,22 +9,9 @@ package project;
  *
  * @author Noëlle
  */
-import java.awt.BorderLayout;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.data.time.Hour;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
 
 public class ButtonAction extends AbstractAction {
 
@@ -44,30 +31,30 @@ public class ButtonAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();
-        Date[] date = new Date[numberOfSamples];
-        double[] aTracer;
-        String[] variableATracer ;
-        
-        try {
-            date = dataContainer.getDates();
-        } catch (ParseException ex) {
-            Logger.getLogger(ButtonAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-        for (int i = 0; i < numberOfSamples; i++) {
-            if (checkBox1[i].isSelected()) {
-                aTracer = dataContainer.getData(checkBox1[i].getText());
-                TimeSeries timeSerie = new TimeSeries(checkBox1[i].getText());
-                timeSerieCollection.addSeries(timeSerie);
-            }
-        }
-        PlotFactory plotF;
-        plotF = new PlotFactory(dataContainer);
-        for (int j = 0; j < numberOfSamples; j++) {
-//            plotF.getPlot());
-            
-        }
+//        TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();
+//        Date[] date = new Date[numberOfSamples];
+//        double[] aTracer;
+//        String[] variableATracer ;
+//        
+//        try {
+//            date = dataContainer.getDates();
+//        } catch (ParseException ex) {
+//            Logger.getLogger(ButtonAction.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+//        for (int i = 0; i < numberOfSamples; i++) {
+//            if (checkBox1[i].isSelected()) {
+//                aTracer = dataContainer.getData(checkBox1[i].getText());
+//                TimeSeries timeSerie = new TimeSeries(checkBox1[i].getText());
+//                timeSerieCollection.addSeries(timeSerie);
+//            }
+//        }
+//        PlotFactory plotF;
+//        plotF = new PlotFactory(dataContainer);
+//        for (int j = 0; j < numberOfSamples; j++) {
+////            plotF.getPlot());
+//            
+//        }
     }
 
 }
