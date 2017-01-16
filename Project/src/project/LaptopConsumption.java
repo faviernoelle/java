@@ -185,7 +185,9 @@ public class LaptopConsumption {
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
         JFrame frame = new JFrame(title);
         frame.setLayout(new BorderLayout());
-
+        frame.setLocation(1000, 150);
+        
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(chartPanel);
         frame.pack();

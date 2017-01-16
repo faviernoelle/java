@@ -70,7 +70,7 @@ public class Project {
             // afficher les variables à afficher dans une interface
              System.out.println("Start PlotFactory");
              PlotFactory plot = new PlotFactory(data);
-             String tableauChaine[] = {"Toffice", "Theater"};
+             String tableauChaine[] = variables_existante; // {"Toffice", "Theater"};
              System.out.println(tableauChaine[1]);
              plot.getPlot(tableauChaine);
              System.out.println("End PlotFactory");

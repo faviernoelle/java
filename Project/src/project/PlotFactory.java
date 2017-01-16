@@ -49,7 +49,7 @@ public class PlotFactory {
      *              fichier CSV
      */
     public PlotFactory(DataContainer csvDataReader) {
-        dataContainer = csvDataReader;
+        this.dataContainer = csvDataReader;
     }
     
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -69,8 +69,8 @@ public class PlotFactory {
     */
     public JPanel getPlot(String[] variableNames) throws IOException, ParseException {
 
+        // DataContainer dataContainer = new DataContainer("office.csv"); // Read CSV
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-        DataContainer dataContainer = new DataContainer("office.csv"); // Read CSV
         Date[] vecteurDates = dataContainer.getDates();
         // Initialization du tableau
         int nbVariable = variableNames.length;
@@ -81,7 +81,7 @@ public class PlotFactory {
             // String capteur = tableauChaine[j];
             // Get the data
             double[] value1 = dataContainer.getData(variableNames[j]);
-            int nbDonnees = dataContainer.getNumberOfSamples();
+            int nbDonnees   = dataContainer.getNumberOfSamples();
             // Store data in vector
             TimeSeries timeSeries1 = new TimeSeries(variableNames[j]);
             for (int i = 0; i < nbDonnees; i++) {
@@ -94,8 +94,9 @@ public class PlotFactory {
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
         JFrame frame = new JFrame("Visualisation des données du fichier CSV");
         frame.setLayout(new BorderLayout());
+        frame.setLocation(450, 300);
 
-//        button.addActionListener(this);
+        // button.addActionListener(this);
         JPanel centerPanel = new JPanel();
         frame.add(centerPanel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
