@@ -22,7 +22,7 @@ import javax.swing.JFrame;
 
 
 /**
- * <b>DataContainer est la classe représentant un fichier de données.</b>
+ * <b>PlotFactory est la classe permettant de tracer les time series (visualisation).</b>
  * <p>
  * Un objet DataContainer est caractérisé par les informations suivantes :
  * <ul>

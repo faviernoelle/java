@@ -16,7 +16,8 @@ import javax.swing.*;
 
 /**
  * <b>PlotTimeChart est la classe permettant de réaliser l'interface graphique 
- * de la visualisation des données </b>
+ * pour les boutons et d'afficher si nécessaire les capteurs sélectionnés par 
+ * l'utilisateur </b>
  * 
  * @see une interface graphique permettant de voir les données avec la date par capteur ou ensemble
  * @see une interface permettant de choisir les données à visualiser
