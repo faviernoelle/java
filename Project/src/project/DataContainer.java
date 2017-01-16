@@ -166,7 +166,7 @@ public class DataContainer {
             
             System.out.println("Start Laptop consumption");
             LaptopConsumption lap= new LaptopConsumption(data) ;
-            int[] presence = lap.AnalyseConsumption();
+//            int[] presence = lap.AnalyseConsumption();
             
         } catch (IOException e) {
             e.printStackTrace();

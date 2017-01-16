@@ -72,7 +72,7 @@ public class PlotFactory {
             timeSeriesCollection.addSeries(timeSeries1);
         }
 
-
+        // Trace la time series
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
         JFrame frame = new JFrame("Test");
         frame.setLayout(new BorderLayout());
