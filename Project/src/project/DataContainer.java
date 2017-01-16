@@ -164,6 +164,9 @@ public class DataContainer {
             System.out.println("Start Plot Buttons");
             PlotTimeChart plotButtons = new PlotTimeChart(data) ;
             
+            System.out.println("Start Laptop consumption");
+            LaptopConsumption lap= new LaptopConsumption(data) ;
+            int[] presence = lap.AnalyseConsumption();
             
         } catch (IOException e) {
             e.printStackTrace();
