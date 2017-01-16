@@ -5,28 +5,108 @@
  */
 package project;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Arrays;
+
 /**
- *
+ * <b>Project est la classe main du projet</b>
+ * 
  * @author faviern
+ * @version 1.0
  */
+
+
+public class Project {
+    
+    public Project(){
+
+    }  
+      
+    /**
+    * Main du program
+    * 
+    * @param args
+    *           une chaine de caractère pouvant contenir des arguments pour le main
+    */
+    public static void main(String[] args) throws ParseException {
+        try {
+            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            System.out.println("Problem: occupancy estimators");
+            System.out.println("Author: Noelle FAVIER");
+            System.out.println("Date: 2017-01-16");
+            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            
+            System.out.println("START of the program");
+            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            
+            // Permet de lire le fichier .csv et stocker dans un tableau data
+            System.out.println("Start DataContainer");
+            DataContainer data = new DataContainer("office.csv");
+            System.out.println(data);
+            System.out.println("End DataContainer");
+                     
+            
+            
+            // Jouer avec ton DataContainer data
+            System.out.println("Affichage de variables");
+            String[] variables_existante = data.getAvailableVariables();
+            //System.out.println(variables_existante);
+            System.out.println(Arrays.toString(variables_existante));
+            
+            
+            
+            System.out.println("Affichage du nombre de variables");
+            int nb_variable = data.getNumberOfVariables();
+            System.out.println(nb_variable);           
+            
+            
+            
+            // afficher les variables à afficher dans une interface
+             System.out.println("Start PlotFactory");
+             PlotFactory plot = new PlotFactory(data);
+             String tableauChaine[] = {"Toffice", "Theater"};
+             System.out.println(tableauChaine[1]);
+             plot.getPlot(tableauChaine);
+             System.out.println("End PlotFactory");
+            
+             
+             
+            // Affichage de la fenetre de selection 
+            System.out.println("Start Plot Buttons");
+            PlotTimeChart plotButtons = new PlotTimeChart(data) ;
+            
+            
+            // Laptop consumption
+            System.out.println("Start Laptop consumption");
+            LaptopConsumption lap= new LaptopConsumption(data) ;
+            
+            
+            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            System.out.println("END of the program");
+            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+}
+
+
+// extends JFrame implements ActionListener 
+    
+//  protected JButton button;
+
+
 //import javax.swing.JFrame;
 //import java.awt.*;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 //import javax.swing.*;
 
-public class Project {
-        // extends JFrame implements ActionListener 
-    
-   //  protected JButton button;
 
-    /*
-     * @param args the command line arguments
-     */
-    // TODO code application logic here
-    
-    public Project(){
-        
 
 // Methode pour dévelloper un interface d'écriture de mail 
         
@@ -69,15 +149,11 @@ public class Project {
         f.setVisible(true);
 */
 
-    }
-    
-    /*
+
+
+
+/*
     public void actionPerformed(ActionEvent e){
         button.setText("Envoyé");
     }
     */
-    
-   
-
-
-}

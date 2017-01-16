@@ -1,6 +1,5 @@
 package project;
 
-import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,11 +10,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.data.time.TimeSeriesCollection;
+
+/**
+ * <b>DataContainer est la classe représentant un fichier de données.</b>
+ * <p>
+ * Un objet DataContainer est caractérisé par les informations suivantes :
+ * <ul>
+ * <li>Une date.</li>
+ * <li>Un nom de variables.</li>
+ * </ul>
+ * </p>
+ * <p>
+ * </p>
+ * 
+ * @see
+ * 
+ * @author faviern
+ * @version 1.0
+ */
+
 
 public class DataContainer {
 
@@ -24,7 +37,23 @@ public class DataContainer {
     Hashtable<String, ArrayList<Double>> data;
     int numberOfSamples = 0;
 
-    //Constructor
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //Constructor    
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    /**
+    * Returns an object DataContainer that reads a csv formatted file with coma 
+    * separator
+    * The csvFileName argument is a string of the filename.
+    * <p>
+    * This method always returns immediately, whether or not the 
+    * image exists. When this applet attempts to draw the image on
+    * the screen, the data will be loaded. The graphics primitives 
+    * that draw the image will incrementally paint on the screen. 
+    *
+    * @param  csvFileName  filename of the csvfile to read
+    * @throws java.io.IOException in case of errors
+    */
     public DataContainer(String csvFileName) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFileName));
         orderedVariableNames = new ArrayList<String>();
@@ -51,24 +80,52 @@ public class DataContainer {
         }
         bufferedReader.close();
         numberOfSamples = timeStrings.size();   
-        
-        // PlotTimeChart toPlot = new PlotTimeChart() ;
 
     }
 
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     // Methods
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    /**
+    * Permet d'avoir le nombre de données.
+    * 
+    * @return    
+    *           Le nombre d'éléments/données (lignes du fichier .csv) 
+    */
     public int getNumberOfSamples() {
         return numberOfSamples;
     }
 
+    
+    /**
+    * Permet d'avoir le nombre de variables mesurées (capteurs)
+    * 
+    * @return    
+    *           Le nombre de variables (colonnes du fichier .csv) 
+    */
     public int getNumberOfVariables() {
         return data.size();
     }
-
+    
+    
+    /**
+    * Permet d'avoir la date
+    * 
+    * @return    
+    *           La date
+    */
     public String[] getTimeStrings() {
         return timeStrings.toArray(new String[numberOfSamples]);
     }
-
+    
+    
+    /**
+    * Permet d'avoir les dates disponibles en format yyyy-MM-d HH:mm:ss
+    * 
+    * @return    
+    *           Les dates disponibles en format yyyy-MM-d HH:mm:ss
+    */
     public Date[] getDates() throws ParseException {
         Date[] dates = new Date[numberOfSamples];
         DateFormat format = new SimpleDateFormat("yyyy-MM-d HH:mm:ss");
@@ -77,11 +134,26 @@ public class DataContainer {
         }
         return dates;
     }
-
+    
+    
+    /**
+    * Permet d'avoir la liste des variables disponibles
+    * 
+    * @return    
+    *           La date en format yyyy-MM-d HH:mm:ss
+    */
     public String[] getAvailableVariables() {
         return orderedVariableNames.toArray(new String[getNumberOfVariables()]);
     }
 
+    
+    /**
+    * Permet d'avoir les données pour la variables choisie (attention 1 seule)
+    * @param columnName
+    *           le nom de la variable choisie
+    * @return    
+    *           array contenant les données
+    */    
     public double[] getData(String columnName) {
         List<Double> column = data.get(columnName);
         double[] values = new double[column.size()];
@@ -90,7 +162,15 @@ public class DataContainer {
         }
         return values;
     }
-
+    
+    
+    /**
+    * Permet d'ajouter des données aux DataContainer
+    * @param variableName
+    *           la variable à laquelle on doit ajouter des données
+    * @param values
+    *           les valeurs à ajouter
+    */  
     public void addData(String variableName, double[] values) {
         if (values.length != getNumberOfSamples()) {
             throw new RuntimeException(variableName + " has " + values.length + " samples instead of " + getNumberOfSamples());
@@ -106,6 +186,14 @@ public class DataContainer {
         data.put(variableName, newValues);
     }
 
+    
+    /**
+    * Permet d'ajouter des données aux DataContainer
+    * @param variableName
+    *           la variable à laquelle on doit ajouter des données
+    * @param values
+    *           les valeurs à ajouter
+    */    
     public void addData(String variableName, Double[] values) {
         double[] primitiveValues = new double[values.length];
         for (int i = 0; i < values.length; i++) {
@@ -114,6 +202,11 @@ public class DataContainer {
         addData(variableName, primitiveValues);
     }
 
+    
+    /**
+    * Permet de faire un affichage des variables et des données
+     * @return 
+    */  
     public String toString() {
         String string = getNumberOfVariables() + " variables: ";
         String firstRow = "[";
@@ -129,49 +222,6 @@ public class DataContainer {
         return string;
     }
 
-    public static void main(String[] args) throws ParseException {
-        try {
-            // Permet de lire le fichier .csv et stocker dans un tableau data
-            System.out.println("Start DataContainer");
-            DataContainer data = new DataContainer("office.csv");
-            System.out.println(data);
-            System.out.println("End DataContainer");
-            
-           
-            // Jouer avec ton DataContainer data
-            System.out.println("Affichage de variable");
-            String[] variables_existante = data.getAvailableVariables();
-            System.out.println(variables_existante);
-            
-            
-            System.out.println("Affichage du nombre de variables");
-            int nb_variable = data.getNumberOfVariables();
-            System.out.println(nb_variable);
-            
-            // avoir les variables sélectionnées
-            // variables_selectionnées
-            
-            
-            // afficher les variables à afficher dans une interface
-             System.out.println("Start PlotFactory");
-             PlotFactory plot = new PlotFactory(data);
-             String tableauChaine[] = {"Toffice", "Theater"};
-             System.out.println(tableauChaine[1]);
-             plot.getPlot(tableauChaine);
-             System.out.println("End PlotFactory");
-            
-            // Affichage de la fenetre de selection 
-            System.out.println("Start Plot Buttons");
-            PlotTimeChart plotButtons = new PlotTimeChart(data) ;
-            
-            System.out.println("Start Laptop consumption");
-            LaptopConsumption lap= new LaptopConsumption(data) ;
-//            int[] presence = lap.AnalyseConsumption();
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+    
 
 }

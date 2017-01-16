@@ -39,7 +39,6 @@ import javax.swing.JFrame;
 public class PlotFactory {
 
     // Variables
-//    Hashtable<String, TimeSeries> timeSeriesContainer;
     DataContainer dataContainer;
     Hashtable<String, TimeSeries> timeSeriesContainer;
 

@@ -2,18 +2,6 @@ package project;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
-
-/*
-import java.text.ParseException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JFrame;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.data.time.Hour;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection; */
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.*;
@@ -26,13 +14,24 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+
+
+/**
+ * <b>PlotTimeChart est la classe permettant de réaliser l'interface graphique 
+ * de la visualisation des données </b>
+ * 
+ * @see une interface graphique permettant de voir les données avec la date par capteur ou ensemble
+ * @see une interface permettant de choisir les données à visualiser
+ * 
+ * @author faviern
+ * @version 1.0
+ */
 
 public class PlotTimeChart extends JFrame implements ActionListener {
     //Equivalent de MainFrame dans le doc
 
-    // Déclaration
+    // Déclaration des variables
     DataContainer dataContainer;
     PlotFactory plotFactory;
     JButton button;
@@ -41,19 +40,43 @@ public class PlotTimeChart extends JFrame implements ActionListener {
     int numberOfSamples;
     JCheckBox[] checkBox1;
 
+    
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //Constructor    
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     // public ButtonAction(JCheckBox[] tabCheckbox, DataContainer data, JTextField fieldDateDebut, JTextField fieldDateFin) {
-    // Constructor 
+    
+    /**
+    * Initialisation de la classe et lancement automatique de l'interface de 
+    * données et du choix de variables
+    * 
+    * @param dataContainer
+    *               objet data container contenant les données au format 
+    *               en colonne les variables (capteurs)
+    *               en ligne les données datées
+    * @throws java.io.IOException
+    * @throws java.text.ParseException
+    */
     public PlotTimeChart(DataContainer dataContainer) throws IOException, ParseException {
 
         // Assignation
-        this.numberOfVariables = dataContainer.getNumberOfVariables();
-        this.checkBox1 = new JCheckBox[numberOfVariables];
-        this.dataContainer = dataContainer;
-        this.numberOfSamples = dataContainer.getNumberOfSamples();
+        this.numberOfVariables  = dataContainer.getNumberOfVariables();
+        this.checkBox1          = new JCheckBox[numberOfVariables];
+        this.dataContainer      = dataContainer;
+        this.numberOfSamples    = dataContainer.getNumberOfSamples();
         this.InitComponents(dataContainer);
 
     }
 
+    
+    /**
+    * Initialisation le GUI avec les courbes à visualiser
+    * 
+    * @param dataContainer
+    *               objet data container contenant les données au format 
+    *               en colonne les variables (capteurs)
+    *               en ligne les données datées
+    */
     private void InitComponents(DataContainer dataContainer) {
 
         // Crée un GUI pour les boutons
@@ -65,16 +88,13 @@ public class PlotTimeChart extends JFrame implements ActionListener {
 
         // Récupère les variables du DataContainer
         System.out.println("- Récupère les variables du DataContainer");
-        // int numberOfLignes = dataContainer.getNumberOfVariables();
-        // System.out.println(numberOfLignes);
         String[] availableVariable = dataContainer.getAvailableVariables();
         System.out.println(availableVariable[0]);
 
         //Crée le tableau avec les cases a cocher
         tablePanel.setLayout(new GridLayout(numberOfVariables, 1));
+        
         // Crée un bouton pour chacune des variables du dataContainer
-        // JCheckBox[] checkBox1 = new JCheckBox[numberOfVariables];
-
         for (int i = 0; i < numberOfVariables; i++) {
             checkBox1[i] = new JCheckBox(availableVariable[i]);
             tablePanel.add(checkBox1[i]);
@@ -85,7 +105,7 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         tablePanel.add(button);
         button.addActionListener(this);
         JPanel eastPanel = new JPanel();
-        JPanel centerPanel = new JPanel();
+        // JPanel centerPanel = new JPanel();
         this.add(eastPanel, BorderLayout.EAST);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
@@ -95,22 +115,22 @@ public class PlotTimeChart extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         // But : va plot les variables sélectionnées
-
-        TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();
+        
         int numberOfSamples = dataContainer.getNumberOfSamples();
-        Date[] date = new Date[numberOfSamples];
-        double[] aTracer;
-        String[] variableATracer;
+        // TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();       
+        // Date[] date = new Date[numberOfSamples];
+        // double[] aTracer;
+        // String[] variableATracer;
         System.out.println("-- Le bouton est actionné");
 
         try {
             // Je récupère la date
             System.out.println("-- Je récupère la date");
-            date = dataContainer.getDates();
+            Date[] date = dataContainer.getDates();
         } catch (ParseException ex) {
             Logger.getLogger(ButtonAction.class.getName()).log(Level.SEVERE, null, ex);
         }
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+        // DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
         System.out.println("-- Je détermine le nombre de variables à tracer");
         int nbATrace = 0;
         for (int i = 0; i < numberOfVariables; i++) {
@@ -136,11 +156,26 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         PlotFactory plot = new PlotFactory(dataContainer);
         try {
             plot.getPlot(tableauNames);
-        } catch (IOException ex) {
-            Logger.getLogger(PlotTimeChart.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (IOException | ParseException ex) {
             Logger.getLogger(PlotTimeChart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 }
+
+
+
+
+
+
+/*
+import java.text.ParseException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.data.time.Hour;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection; */
