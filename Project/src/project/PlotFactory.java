@@ -24,16 +24,10 @@ import javax.swing.JFrame;
 /**
  * <b>PlotFactory est la classe permettant de tracer les time series (visualisation).</b>
  * <p>
- * Un objet DataContainer est caractérisé par les informations suivantes :
- * <ul>
- * <li>Une date.</li>
- * <li>Un nom de variables.</li>
- * </ul>
- * </p>
- * <p>
+ * Un objet PlotFactory est une visualisation des données
  * </p>
  * 
- * @see
+ * @see un GUI avec les time series
  * 
  * @author faviern
  * @version 1.0
@@ -41,16 +35,29 @@ import javax.swing.JFrame;
 
 public class PlotFactory {
 
-    // Variables
+    // Déclaration des Variables
     DataContainer dataContainer;
     Hashtable<String, TimeSeries> timeSeriesContainer;
 
-    // Constructor
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //Constructor    
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     public PlotFactory(DataContainer csvDataReader) {
         dataContainer = csvDataReader;
     }
-
+    
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     // Methods
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    /**
+    * Initialisation le GUI avec les courbes à visualiser
+    * 
+     * @param variableNames
+     *              liste des variables à tracer
+     * @return 
+     * @throws java.io.IOException
+     * @throws java.text.ParseException
+    */
     public JPanel getPlot(String[] variableNames) throws IOException, ParseException {
 
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
@@ -76,7 +83,7 @@ public class PlotFactory {
 
         // Trace la time series
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
-        JFrame frame = new JFrame("Test");
+        JFrame frame = new JFrame("Visualisation des données du fichier CSV");
         frame.setLayout(new BorderLayout());
 
 //        button.addActionListener(this);
