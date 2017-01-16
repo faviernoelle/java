@@ -7,14 +7,11 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import org.jfree.data.time.TimeSeriesCollection;
 
 
 /**
@@ -116,12 +113,12 @@ public class PlotTimeChart extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // But : va plot les variables sélectionnées
         
-        int numberOfSamples = dataContainer.getNumberOfSamples();
+        // int numberOfSamples = dataContainer.getNumberOfSamples();
         // TimeSeriesCollection timeSerieCollection = new TimeSeriesCollection();       
         // Date[] date = new Date[numberOfSamples];
         // double[] aTracer;
         // String[] variableATracer;
-        System.out.println("-- Le bouton est actionné");
+        System.out.println("-- Le bouton 'Plot' est actionné");
 
         try {
             // Je récupère la date
