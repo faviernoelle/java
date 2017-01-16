@@ -7,7 +7,7 @@ package project;
 
 /**
  *
- * @author Noëlle
+ * @author faviern
  */
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;

@@ -16,8 +16,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
@@ -52,7 +50,7 @@ public class LaptopConsumption {
         // Presence en fonction des occupants + plots       
         System.out.println("Presence en fonction des occupants + plots ");
         double[] presence = this.AnalyseConsumptionLaptops();
-        System.out.println(presence);
+        System.out.println(Arrays.toString(presence));
         String title1 = "Occupancy estimator";
         this.getPresencePlot(presence, title1);
         
