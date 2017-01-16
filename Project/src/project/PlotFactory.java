@@ -27,7 +27,7 @@ import javax.swing.JFrame;
  * Un objet PlotFactory est une visualisation des données
  * </p>
  * 
- * @see un GUI avec les time series
+ * un GUI avec les time series
  * 
  * @author faviern
  * @version 1.0
@@ -46,6 +46,7 @@ public class PlotFactory {
     /**
      *
      * @param csvDataReader
+     *              fichier CSV
      */
     public PlotFactory(DataContainer csvDataReader) {
         dataContainer = csvDataReader;
@@ -59,9 +60,12 @@ public class PlotFactory {
     * 
      * @param variableNames
      *              liste des variables à tracer
-     * @return 
+     * @return ChartPanel
+     *              GUI de visualisation
      * @throws java.io.IOException
+     *              en cas d'erreur
      * @throws java.text.ParseException
+     *              en cas d'erreur
     */
     public JPanel getPlot(String[] variableNames) throws IOException, ParseException {
 

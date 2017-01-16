@@ -17,7 +17,6 @@ package project;
  * Finding the minimum of a 1-variable convex function can be done by dichotomy.
  * </p>
  *
- * @see
  *
  * @author faviern
  * @version 1.0

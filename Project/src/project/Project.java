@@ -32,6 +32,7 @@ public class Project {
     * @param args
     *           une chaine de caractère pouvant contenir des arguments pour le main
     * @throws java.text.ParseException
+    *           en cas d'erreur
     */
     public static void main(String[] args) throws ParseException {
         try {

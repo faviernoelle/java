@@ -19,8 +19,8 @@ import javax.swing.*;
  * pour les boutons et d'afficher si nécessaire les capteurs sélectionnés par 
  * l'utilisateur </b>
  * 
- * @see une interface graphique permettant de voir les données avec la date par capteur ou ensemble
- * @see une interface permettant de choisir les données à visualiser
+ * une interface graphique permettant de voir les données avec la date par capteur ou ensemble
+ * une interface permettant de choisir les données à visualiser
  * 
  * @author faviern
  * @version 1.0
@@ -53,7 +53,9 @@ public class PlotTimeChart extends JFrame implements ActionListener {
     *               en colonne les variables (capteurs)
     *               en ligne les données datées
     * @throws java.io.IOException
+    *               en cas d'erreur
     * @throws java.text.ParseException
+    *               en cas d'erreur
     */
     public PlotTimeChart(DataContainer dataContainer) throws IOException, ParseException {
 

@@ -25,7 +25,7 @@ import org.jfree.data.time.TimeSeriesCollection;
  * <b>LaptopConsumption est la classe permettant de calculer la consommation des PCs dans une zonne
  * et aussi celle des utilisateurs.</b>
  * 
- * @see une interface montrant cet effet
+ * interface montrant cet effet
  * 
  * @author faviern
  * @version 1.0
@@ -55,7 +55,9 @@ public class LaptopConsumption {
     *               en colonne les variables (capteurs)
     *               en ligne les données datées
     * @throws java.io.IOException
+    *               en cas d'erreur
     * @throws java.text.ParseException
+    *               en cas d'erreur
     */
     public LaptopConsumption(DataContainer dataContainer) throws IOException, ParseException {
         // Asignation
@@ -84,7 +86,8 @@ public class LaptopConsumption {
     /**
     * Presence en fonction des occupants + plots
     * 
-    * @return 
+    * @return presence 
+    *       the occupancy based on laptops
     */
     public double[] AnalyseConsumptionLaptops() {
        
@@ -116,7 +119,8 @@ public class LaptopConsumption {
     * 
     * @param presence
     *               la présence calculée simplément avec les zones X et le laptop Y
-    * @return 
+    * @return occupancyFromMotions
+    *               la présence basée sur la détection de mouvements
     */    
     public double[] AnalyseDataMotion(double[] presence){
 
@@ -158,9 +162,12 @@ public class LaptopConsumption {
     *               la présence calculée simplément avec les zones X et le laptop Y
     * @param title
     *               un titre pour la fenêtre GUI
-    * @return 
-    * @throws java.io.IOException 
+    * @return ChartPanel
+    *               un GUI affichant les présences
+    * @throws java.io.IOException
+    *               en cas d'erreur
     * @throws java.text.ParseException 
+    *               en cas d'erreur
     */
     public JPanel getPresencePlot(double[] presence, String title) throws IOException, ParseException {
 

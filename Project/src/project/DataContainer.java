@@ -13,17 +13,11 @@ import java.util.List;
 
 /**
  * <b>DataContainer est la classe représentant un fichier de données.</b>
- * <p>
  * Un objet DataContainer est caractérisé par les informations suivantes :
  * <ul>
  * <li>Une date.</li>
  * <li>Un nom de variables.</li>
  * </ul>
- * </p>
- * <p>
- * </p>
- * 
- * @see
  * 
  * @author faviern
  * @version 1.0
@@ -125,6 +119,8 @@ public class DataContainer {
     * 
     * @return    
     *           Les dates disponibles en format yyyy-MM-d HH:mm:ss
+     * @throws java.text.ParseException
+     *          in case of error
     */
     public Date[] getDates() throws ParseException {
         Date[] dates = new Date[numberOfSamples];
@@ -205,7 +201,8 @@ public class DataContainer {
     
     /**
     * Permet de faire un affichage des variables et des données
-     * @return 
+    * @return string
+    *           chaine de caractère à l'affichage
     */  
     public String toString() {
         String string = getNumberOfVariables() + " variables: ";
