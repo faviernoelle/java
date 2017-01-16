@@ -19,6 +19,9 @@ import java.util.Arrays;
 
 public class Project {
     
+    /**
+     * Main du program
+     */
     public Project(){
 
     }  
@@ -28,6 +31,7 @@ public class Project {
     * 
     * @param args
     *           une chaine de caractère pouvant contenir des arguments pour le main
+    * @throws java.text.ParseException
     */
     public static void main(String[] args) throws ParseException {
         try {

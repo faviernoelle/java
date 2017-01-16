@@ -42,6 +42,11 @@ public class PlotFactory {
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     //Constructor    
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    /**
+     *
+     * @param csvDataReader
+     */
     public PlotFactory(DataContainer csvDataReader) {
         dataContainer = csvDataReader;
     }
