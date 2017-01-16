@@ -61,6 +61,8 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         this.checkBox1          = new JCheckBox[numberOfVariables];
         this.dataContainer      = dataContainer;
         this.numberOfSamples    = dataContainer.getNumberOfSamples();
+        
+        // Lance par defaut InitComponents avec dataContainer (construction des GUIs)
         this.InitComponents(dataContainer);
 
     }
@@ -97,7 +99,7 @@ public class PlotTimeChart extends JFrame implements ActionListener {
             tablePanel.add(checkBox1[i]);
         }
 
-        //Crée le bouton qui permet de tracer les variables sélectionnées
+        // Crée le GUI qui permet de tracer les variables sélectionnées
         button = new JButton("plot");
         tablePanel.add(button);
         button.addActionListener(this);
@@ -110,6 +112,13 @@ public class PlotTimeChart extends JFrame implements ActionListener {
 
     }
 
+    
+    /**
+    * Est lancé lorsque l'utilisateur appuie sur le bouton 'Plot'
+    * 
+    * @param e
+    *               evenement (appui sur le bouton Plot)
+    */
     public void actionPerformed(ActionEvent e) {
         // But : va plot les variables sélectionnées
         
@@ -127,6 +136,7 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         } catch (ParseException ex) {
             Logger.getLogger(ButtonAction.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         // DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
         System.out.println("-- Je détermine le nombre de variables à tracer");
         int nbATrace = 0;
@@ -138,10 +148,11 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         System.out.println(nbATrace);
         
         
-        System.out.println("-- Je stock dans un tableau");
+        System.out.println("-- Je stockes dans un tableau");
         String[] tableauNames = new String[nbATrace];
         int counter = 0;
         // String[] variables_existante = dataContainer.getAvailableVariables();
+        System.out.println("-- Voici les nouvelles variables tracées");
         for (int i = 0; i < numberOfVariables; i++) {
             if (checkBox1[i].isSelected()) {
                 tableauNames[counter] = checkBox1[i].getText();
@@ -149,7 +160,8 @@ public class PlotTimeChart extends JFrame implements ActionListener {
                 counter = counter +1;
             }
         }
-        // appel à la fonction qui trace
+        
+        // Appel à la fonction qui trace
         PlotFactory plot = new PlotFactory(dataContainer);
         try {
             plot.getPlot(tableauNames);
