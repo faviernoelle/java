@@ -166,6 +166,10 @@ public class LaptopConsumption {
     *               la présence calculée simplément avec les zones X et le laptop Y
     * @param title
     *               un titre pour la fenêtre GUI
+    * @param posX
+    *               position X of the window
+    * @param posY
+    *               position Y of the window
     * @return ChartPanel
     *               un GUI affichant les présences
     * @throws java.io.IOException
