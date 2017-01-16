@@ -175,14 +175,14 @@ public class LaptopConsumption {
         Date[] vecteurDates = dataContainer.getDates();
        
         TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
-            TimeSeries timeSeries1 = new TimeSeries("presence");
+            TimeSeries timeSeries1 = new TimeSeries(title);
             for (int i = 0; i <numberOfSamples ; i++) {
                 timeSeries1.add(new Hour(vecteurDates[i]), presence[i]);
             }
             timeSeriesCollection.addSeries(timeSeries1);
 
         // Trace la time series
-        JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
+        JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart(title, "Date", title, timeSeriesCollection, true, true, false));
         JFrame frame = new JFrame(title);
         frame.setLayout(new BorderLayout());
         frame.setLocation(1000, 150);
@@ -193,7 +193,7 @@ public class LaptopConsumption {
         frame.pack();
         frame.setVisible(true);
 
-        return new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
+        return new ChartPanel(ChartFactory.createTimeSeriesChart(title, "Date", title, timeSeriesCollection, true, true, false));
 
     }    
     

@@ -68,7 +68,9 @@ public class PlotFactory {
      *              en cas d'erreur
     */
     public JPanel getPlot(String[] variableNames) throws IOException, ParseException {
-
+        
+        String title = "Visualisation des données du fichier CSV";
+        
         // DataContainer dataContainer = new DataContainer("office.csv"); // Read CSV
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
         Date[] vecteurDates = dataContainer.getDates();
@@ -91,8 +93,8 @@ public class PlotFactory {
         }
 
         // Trace la time series
-        JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
-        JFrame frame = new JFrame("Visualisation des données du fichier CSV");
+        JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart(title, "Date", "ylabel", timeSeriesCollection, true, true, false));
+        JFrame frame = new JFrame(title);
         frame.setLayout(new BorderLayout());
         frame.setLocation(450, 300);
 
@@ -104,7 +106,7 @@ public class PlotFactory {
         frame.pack();
         frame.setVisible(true);
 
-        return new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
+        return new ChartPanel(ChartFactory.createTimeSeriesChart(title, "Date", "ylabel", timeSeriesCollection, true, true, false));
 
     }
 }
