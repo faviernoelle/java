@@ -54,10 +54,8 @@ public class LaptopConsumption {
 
     public int[] AnalyseConsumption() {
 
-        //0. Boucle sur les laptops
-        // String zoneAanalyser = "power_laptop1_zone1";
+        
         // 1. Récupérer depuis dataContainer la colonne de zone à analyser
-        // 2. Calcul de la consommation
         int[] presence = new int[numberOfSamples];
         double[] donnees;
         for (int t=0 ; t<numberOfSamples ; t++){
@@ -67,8 +65,6 @@ public class LaptopConsumption {
             String zoneAanalyser_j = zoneAanalyser[j];
             // Copie des données du power_laptopX_zoneY dans la variable "donnée"
             donnees = dataContainer.getData(zoneAanalyser_j);
-//            System.out.println(donnees);
-            // Je convertis chaque donnee[i] en presence[i]: 0 ou 1 si > ou < 15
             for (int i = 0; i < numberOfSamples; i++) {
                 if (donnees[i] > 15) {
                     presence[i] = presence[i] + 1;
@@ -79,7 +75,6 @@ public class LaptopConsumption {
             }
         }
 
-        // 3. Print oui y'a qqn ou non y'a personne
         return presence;
     }
 
@@ -87,34 +82,20 @@ public class LaptopConsumption {
     public JPanel getPresencePlot(int[] presence) throws IOException, ParseException {
 
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-//        DataContainer dataContainer = new DataContainer("office.csv"); // Read CSV
         Date[] vecteurDates = dataContainer.getDates();
-        // Initialization du tableau
-//        int nbVariable = variableNames.length;
-        // int nbLigne = vecteurDates.length;
        
         TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
-//        for (int j = 0; j < 1 ; j++) {
-            // String capteur = tableauChaine[j];
-            // Get the data
-            // double[] value1 = dataContainer.getData(variableNames[j]);
-//            int nbDonnees = dataContainer.getNumberOfSamples();
-            // Store data in vector
             TimeSeries timeSeries1 = new TimeSeries("presence");
             for (int i = 0; i <numberOfSamples ; i++) {
                 timeSeries1.add(new Hour(vecteurDates[i]), presence[i]);
             }
             timeSeriesCollection.addSeries(timeSeries1);
-//        }
 
         // Trace la time series
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart("title", "xlabel", "ylabel", timeSeriesCollection, true, true, false));
         JFrame frame = new JFrame("Test");
         frame.setLayout(new BorderLayout());
 
-//        button.addActionListener(this);
-//        JPanel centerPanel = new JPanel();
-//        frame.add(centerPanel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(chartPanel);
         frame.pack();
