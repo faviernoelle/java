@@ -101,7 +101,8 @@ public class PlotFactory {
         // button.addActionListener(this);
         JPanel centerPanel = new JPanel();
         frame.add(centerPanel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(chartPanel);
         frame.pack();
         frame.setVisible(true);

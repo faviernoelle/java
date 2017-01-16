@@ -37,7 +37,7 @@ public class LaptopConsumption {
     PlotFactory plotFactory;
     int plotCounter = 0;
     int numberOfVariables;
-    int numberOfSamples;
+    int numberOfSamples;       
     String[] variables;
     String[] zoneAanalyser;
 
@@ -68,18 +68,22 @@ public class LaptopConsumption {
         String tmp_zoneAanalyser[]  = {"power_laptop1_zone1", "power_laptop1_zone2", "power_laptop2_zone2", "power_laptop3_zone2"};
         this.zoneAanalyser          = tmp_zoneAanalyser;
         
-        // Presence en fonction des occupants + plots       
+        // Presence en fonction des occupants + plots    
+        int posX = 1100;
+        int posY = 50;
         System.out.println("Presence en fonction des occupants + plots ");
         double[] presence = this.AnalyseConsumptionLaptops();
         System.out.println(Arrays.toString(presence));
         String title1 = "Occupancy estimator";
-        this.getPresencePlot(presence, title1);
+        this.getPresencePlot(presence, title1, posX, posY);
         
         // Presence en fonction de motion + plots
+        int posX2 = posX;
+        int posY2 = 550;
         System.out.println("Presence en fonction de motion + plots ");
         double[] presenceMotion = this.AnalyseDataMotion(presence);
         String title2 = "Occupancy estimator + Motion detection";
-        this.getPresencePlot(presenceMotion, title2);
+        this.getPresencePlot(presenceMotion, title2, posX2, posY2);
         
     }
 
@@ -169,7 +173,7 @@ public class LaptopConsumption {
     * @throws java.text.ParseException 
     *               en cas d'erreur
     */
-    public JPanel getPresencePlot(double[] presence, String title) throws IOException, ParseException {
+    public JPanel getPresencePlot(double[] presence, String title, int posX, int posY) throws IOException, ParseException {
 
         DateFormat format = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
         Date[] vecteurDates = dataContainer.getDates();
@@ -185,10 +189,10 @@ public class LaptopConsumption {
         JPanel chartPanel = new ChartPanel(ChartFactory.createTimeSeriesChart(title, "Date", title, timeSeriesCollection, true, true, false));
         JFrame frame = new JFrame(title);
         frame.setLayout(new BorderLayout());
-        frame.setLocation(1000, 150);
+        frame.setLocation(posX, posY);
         
-        
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(chartPanel);
         frame.pack();
         frame.setVisible(true);

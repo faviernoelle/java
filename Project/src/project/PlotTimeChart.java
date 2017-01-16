@@ -109,7 +109,8 @@ public class PlotTimeChart extends JFrame implements ActionListener {
         JPanel eastPanel = new JPanel();
         // JPanel centerPanel = new JPanel();
         this.add(eastPanel, BorderLayout.EAST);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
         this.setVisible(true);
 
